@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="css/login.css">
+    </head>
+    <body>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+            <li id="sessao"><a href="/login">Login</a></li>
+        </ul>
+
+         <div class="container">
+            <form class="center" method="post" action="/login">
+                <h1>Cadastro</h1>
+                <fieldset id="borda">
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email" id="em"><br>
+
+                    <label for="senha">Senha</label><br>
+                    <input type="text" name="senha" id="senha" ><br><br>
+                    <center><button type="submit" value="submit" onclick="loginErrado()">Enviar </button></center>
+                </fieldset>
+            </form>
+        </div>
+
+        <script>
+            
+            function loginErrado() {
+            const mail = document.querySelector('input[name=email]');
+            const senha = document.querySelector('input[name=senha]');
+                let guardarEmail = [];
+                let guardarSenha = [];
+                let getTest = <%- JSON.stringify(clients)%>
+                for (let index = 0; index < getTest.length; index++) {
+                    if(mail.value == getTest[index].email && senha.value == getTest[index].senha1)
+                    {
+                        //console.log(mail.value);
+                        //console.log(getTest[index].email);
+                        guardarEmail[0] = getTest[index].email;
+                        guardarSenha[0] = getTest[index].senha1;
+                        break;
+                    }
+                }
+                if(mail.value == guardarEmail[0] && senha.value == guardarSenha[0])
+                {
+                    console.log(guardarEmail[0]);
+                    console.log(guardarSenha[0]);
+                    mail.setCustomValidity('');
+                }else{
+                    mail.setCustomValidity('informação invalida ou falta informação');
+                }
+            }
+        </script>
+    </body>
+</html>

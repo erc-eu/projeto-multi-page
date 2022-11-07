@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>loja/conta-editar</title>
+</head>
+<body>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <% if (session!= null) { %>
+            <li><a href="/loja">Loja</a></li>
+            <li id="sessao"><a href="/logout">sair</a></li>
+            <li id="sessao"><a><%=session.email%></a></li>
+            <li id="sessao"><a href="/loja/conta">Minha Conta</a></li>
+            <li id="sessao"><a href="/loja/aluguel">Meus Alugueis</a></li>
+        <% } %>
+        <% if (session == null) { %>
+            <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+            <li id="sessao"><a href="/login">Login</a></li>
+        <% } %>
+    </ul>
+
+    <center>
+        <% for (let i = 0; i < cliente.length; i++) {%>
+            <div id="imgDivCarro" style="height: 450px; width: 500px; border: none;">
+            <div style="display: inline-block; border-top:2px solid;">
+               
+                <form method="post" action="/loja/conta-editar">
+                    <input type="hidden" name="_id" value="<%= cliente[i]._id%>">
+                    <label for="nome">Nome:</label><br>
+                    <input type="text" name="nome" value="<%= cliente[i].nome %>" required><br>
+
+                    <label for="data">Data de Nascimento: </label><br>
+                    <input type="date" name="data" value="<%=cliente[i].data%>" required><br><br>
+
+                    <label for="Sexo">Masculino</label>
+                    <input type="radio" name="sexo" value="Masculino" required>
+                    <label for="Sexo">Feminino</label>
+                    <input type="radio" name="sexo" value="Feminino" required><br><br>
+
+                    <label for="telefone">Telefone</label><br>
+                    <input type="text" name="telefone" value="<%=cliente[i].telefone%>"><br>
+
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email" id="email" value="<%=cliente[i].email%>" required><br><br>
+                    <center><button type="submit" style="width: 95%;">Salvar Edição</button></center>
+                </form>
+            </div>
+            </div>
+        <%}%>
+    </center>
+
+</body>
+</html>

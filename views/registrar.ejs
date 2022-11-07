@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resgitrar Cliente</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+            <li id="sessao"><a href="/login">Login</a></li>
+         </ul>
+
+        <div class="container">
+            <form class="center" method="post" action="/registrar">
+                <h1>Cadastro</h1>
+                <fieldset id="borda">
+                    <label for="nome">Nome:</label><br>
+                    <input type="text" name="nome" required><br>
+
+                    <label for="data">Data de Nascimento: </label><br>
+                    <input type="date" name="data" required><br><br>
+
+                    <label for="Sexo">Masculino</label>
+                    <input type="radio" name="sexo" value="Masculino" required>
+                    <label for="Sexo">Feminino</label>
+                    <input type="radio" name="sexo" value="Feminino" required><br><br>
+
+                    <label for="telefone">Telefone</label><br>
+                    <input type="text" name="telefone"><br>
+
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email" id="email" onchange="emailDif()" required><br>
+                    
+                    <label for="senha">Senha</label><br>
+                    <input type="text" name="senha1" id="senha1" onchange="senhasdiferentes()" required><br>
+                    <label for="senha">Confirme a senha</label><br>
+                    <input type="text" name="senha2" id="senha2" onchange="senhasdiferentes()" required><br><br>
+                    
+                    <center><button type="submit" value="submit" style="border-radius:10px;">Enviar </button></center>
+                </fieldset>
+            </form>
+        </div>
+
+        <script>
+            function senhasdiferentes()
+            {
+                const pwd = document.querySelector('input[name=senha1]');
+                const pwd2 = document.querySelector('input[name=senha2]');
+                if(pwd2.value === pwd.value)
+                {
+                    pwd2.setCustomValidity('');
+                }else{
+                    pwd2.setCustomValidity('Senhas não são iguais, corrija!');
+                }
+            }
+
+            function emailDif()
+            {
+                const mail = document.querySelector('input[name=email]');
+                const guardar = [];
+                let getTest = <%- JSON.stringify(clients)%>
+                for (let index = 0; index < getTest.length; index++) {
+                    if(mail.value == getTest[index].email)
+                    {
+                        //console.log(mail.value);
+                        //console.log(getTest[index].email);
+                        guardar[0] = getTest[index].email;
+                        break;
+                    }
+                }
+                if(mail.value == guardar[0])
+                {
+                    mail.setCustomValidity('Email já existe');
+                }else
+                {
+                    mail.setCustomValidity('');
+                }
+                    
+            }
+                
+        </script>
+    </body>
+</html>

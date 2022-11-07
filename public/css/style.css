@@ -1,0 +1,143 @@
+body{
+    margin:0;
+}
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+#btalugarCarro{
+    background-color:   rgb(159, 164, 168);
+    color:  rgb(74, 78, 82);
+    font-family: sans-serif;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin:auto;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius:none;
+}
+#btalugarCarro:hover{
+    background-color: rgb(74, 78, 82);
+    color: rgb(181, 187, 192);
+}
+#butEdit{
+    display:inline-block;
+}
+#textCarro{
+    list-style-type: none;
+    margin:5px; 
+    color: #333;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+#textSession{
+    list-style-type: none;
+    margin:5px; 
+    color: #333;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+#imgDivCarro{
+    margin-top:30px;
+    width:300px;
+    height:100%;
+    display:inline-block;
+    border:5px solid;
+    border-radius:px;
+}
+#imagens{
+    width:100%;
+    height:200px;
+}
+
+li{
+    float:left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover {
+    background-color: #111;
+}
+#sessao{
+    float:right;
+}
+#borda{
+    border: none;
+}
+
+h1{
+    color: rgb(181, 187, 192);
+    font-size: 30px;
+    font-family: arial;
+    text-align: center;
+}
+
+.container{
+    width:100vw;
+    height:100vw;
+}
+.center{
+    background-size: cover;
+    width: 300px;
+    height: 500px;
+    position: absolute;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.918)  ;
+    border-radius: 10px;
+    -webkit-box-shadow: 9px 7px 5px rgba(0, 0, 0, 0.77);
+      -moz-box-shadow:    9px 7px 5px rgba(0, 0, 0, 0.77);
+      box-shadow:         9px 7px 5px rgba(0, 0, 0, 0.77);
+  }
+
+  label{
+    color: DimGrey;
+    font-weight: bolder;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+input{
+    font-size: 18px;
+    border: none;
+    background-color: rgb(56, 56, 56);
+    color: white;
+}
+button{
+
+    background-color:   rgb(159, 164, 168);
+    color:  rgb(74, 78, 82);
+    border: solid;
+    border-color: rgb(159, 164, 168);
+    font-family: sans-serif;
+    font-weight: bold;
+    width: 50%;
+    padding: 12px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: auto 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: rgb(74, 78, 82);
+    color: rgb(181, 187, 192);
+}

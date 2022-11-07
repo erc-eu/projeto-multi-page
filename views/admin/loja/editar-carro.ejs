@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>admin/loja</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+    </head>
+    <body style="margin:auto;">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <% if (session!= null) { %>
+                        <% if (session.cargo == null) { %>
+                            <li><a href="/loja">Loja</a></li>
+                            <li id="sessao"><a href="/logout">sair</a></li>
+                            <li id="sessao"><a><%=session.email%></a></li>
+                            <li id="sessao"><a href="">Minha Conta</a></li>
+                            <li id="sessao"><a href="">Meus Alugueis</a></li>
+                        <% } else { %>
+                            <li id="sessao"><a href="/logout">sair</a></li>
+                            <li id="sessao"><a><%=session.email%></a></li>
+                            <li id="sessao"><a>ADMIN</a></li>
+                            <li><a href="/admin/loja">Loja</a></li>
+                            <li><a href="/admin/aluguel">Aluguel</a></li>
+                            <li><a href="/admin/loja/add-carro">Adicionar Carro</a></li>
+                        <%} %>
+                        
+                    <% } %>
+                    <% if (session == null) { %>
+                        <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+                        <li id="sessao"><a href="/login">Login</a></li>
+                    <% } %>
+                </ul>
+
+                <div class="container">
+                    <form class="center" method="post" action="/admin/loja/editar-carro">
+                        <h1>Editar Carro</h1>
+                        <fieldset id="borda">
+                            <input type="text" name="_idEdit" value="<%=carroEditar[0]._id%>">
+                            <label for="fotoEdit">Foto:</label><br>
+                            <input type="url" name="fotoEdit" value="<%=carroEditar[0].foto%>" placeholder="Cole uma URL de imagem" required><br>
+        
+                            <label for="nomeEDIT">Nome </label><br>
+                            <input type="text" name="nomeEdit" value= "<%=carroEditar[0].nome%>" required><br>
+        
+                            <label for="marcaEdit">Marca</label><br>
+                            <input type="text" name="marcaEdit" value="<%=carroEditar[0].marca%>"  required><br>
+
+                            <label for="corEdit">Cor</label><br>
+                            <input type="text" name="corEdit" value="<%=carroEditar[0].cor%>" required><br>
+
+                            <label for="valorEdit">Valor</label><br>
+                            <input type="text" name="valorEdit" value="<%=carroEditar[0].valor%>" required><br>
+                            
+                            <label for="diariaEdit">Diaria</label><br>
+                            <input type="text" name="diariaEdit" value="<%=carroEditar[0].diaria%>" required><br><br>
+
+                            <center><button type="submit" style="border-radius:10px ;">Enviar </button></center>
+                        </fieldset>
+                    </form>
+                </div>
+    </body>
+</html>

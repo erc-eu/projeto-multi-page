@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>/loja</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body style="margin:auto;">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <% if (session.cargo == null) { %>
+                        <li><a href="/loja">Loja</a></li>
+                        <li id="sessao"><a href="/logout">sair</a></li>
+                        <li id="sessao"><a><%=session.email%></a></li>
+                        <li id="sessao"><a href="/loja/conta">Minha Conta</a></li>
+                        <li id="sessao"><a href="/loja/aluguel">Meus Alugueis</a></li>
+                    <% } else { %>
+                        <li id="sessao"><a href="/logout">sair</a></li>
+                        <li id="sessao"><a><%=session.email%></a></li>
+                        <li id="sessao"><a>ADMIN</a></li>
+                    <%} %>
+                    <% if (session == null) { %>
+                        <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+                        <li id="sessao"><a href="/login">Login</a></li>
+                    <% } %>
+                </ul>
+                <center>
+                    <% for (let i = 0; i < produtos.length; i++) {%>
+                    <div id="imgDivCarro">
+                        <img id="imagens" src="<%= produtos[i].foto %>" >
+                        <div id="infor">
+                            <li id="textCarro">Nome: <%= produtos[i].nome %> </li>
+                            <li id="textCarro">Marca: <%= produtos[i].marca %> </li>
+                            <li id="textCarro">Cor: <%= produtos[i].cor %> </li>
+                            <li id="textCarro">Valor: <%= produtos[i].valor%> </li>
+                            <li id="textCarro">Diaria: <%= produtos[i].diaria %> </li>
+                            <button id="btalugarCarro" onclick="alugar('<%=produtos[i]._id%>')">Alugar</button>
+                        </div>
+                    </div>
+                            <% } %>
+                    </center>
+
+                    <script>
+                        function alugar(valor) {
+                            location.href="/loja/alugar?_id=" + valor;
+                        }
+                    </script>
+    </body>
+</html>

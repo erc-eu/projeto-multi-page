@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>loja/alugar</title>
+</head>
+<body>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <% if (session!= null) { %>
+            <li><a href="/loja">Loja</a></li>
+            <li id="sessao"><a href="/logout">sair</a></li>
+            <li id="sessao"><a><%=session.email%></a></li>
+            <li id="sessao"><a href="/loja/conta">Minha Conta</a></li>
+            <li id="sessao"><a href="/loja/aluguel">Meus Alugueis</a></li>
+        <% } %>
+        <% if (session == null) { %>
+            <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+            <li id="sessao"><a href="/login">Login</a></li>
+        <% } %>
+    </ul>
+    <center>
+        <% for (let i = 0; i < carro.length; i++) {%>
+        <div id="imgDivCarro" style="height: auto; width: 400px; border: 2px solid;">
+            <img id="imagens" src="<%= carro[i].foto %>" >
+            <div style="margin:auto; display: inline-block;">
+                <li id="textCarro">Nome: <%= carro[i].nome %> </li>
+                <li id="textCarro">Marca: <%= carro[i].marca %> </li>
+                <li id="textCarro">Cor: <%= carro[i].cor %> </li>
+                <li id="textCarro">Valor: <%= carro[i].valor%> </li>
+                <input type="hidden" id="diariaCarro" value="<%= carro[i].diaria%>">
+                <li id="textCarro">Diaria: <%= carro[i].diaria %> </li><br><br>
+                <% if (alugado != '') { %>
+                    <h3>Alugueis futuros já feitos</h3>
+                    <% for( let index = 0; index < alugado.length; index++ ) { %>
+                        <% if (index < 3) { %>
+                            <% if (carro[i]._id == alugado[index]._idCarroAlugado) { %>
+                                <% if (alugado[index].statusAlugado == "Confirmado") { %>
+                                    <li id="dataInicioAlugado" value="<%= alugado[index].datainicio %>" style="width: 100%; list-style-type: none;
+                                    color: #333;
+                                    font-size: 14px;
+                                    font-family: sans-serif;">Data de inicio: <%= alugado[index].datainicio %> </li>
+                                    
+                                    <li id="dataFimAlugado" value="<%= alugado[index].datafim %>"
+                                    style="width: 100%;  list-style-type: none; 
+                                    margin-bottom: 10px;
+                                    color: #333;
+                                    font-size: 14px;
+                                    font-family: sans-serif; border-bottom: 2px solid;">Data de fim: <%= alugado[index].datafim %> </li>
+                                <% } %>
+                            <% } %>
+                        <% } %>   
+                    <% }%>
+                <% } %>
+            </div>
+            <form action="/admin/loja" method="POST" style="width: 100%; padding: auto;">
+
+                <input type="hidden" name="_idCarroAlugado" value="<%=carro[0]._id%>">
+                <input type="hidden" name="fotoCarroAlugado" value="<%=carro[0].foto%>">
+                <input type="hidden" name="nomeCarroAlugado" value="<%=carro[0].nome%>">
+                <input type="hidden" name="marcaCarroAlugado" value="<%=carro[0].marca%>">
+                <input type="hidden" name="corCarroAlugado" value="<%=carro[0].cor%>">
+                <input type="hidden" name="diariaCarroAlugado" value="<%=carro[0].diaria%>">
+                <input type="hidden" name="valorTotal" type="hidden" id="valorTotal"><br><br>
+
+                <label for="dataInicio">Data de Inicio</label><br>
+                <input type="datetime-local" name="datainicio" id="datainicio" onchange="dataInvalida()" required><br><br>
+                <label for="dataFim">Data de Fim</label><br>
+                <input type="datetime-local" name="datafim" id="datafim" onchange="difereDatas()" required><br><br>
+
+                <label>Valor Total</label><br>
+                <input style="width: 50px; text-align: center;" type="text" id="valorT" disabled><br><br>
+
+                <input type="hidden" name="userAlugou" value="<%=session.email%>">
+
+                <label for="Cartao">Cartão</label>
+                <input type="radio" name="FormaPagamento" value="Cartao" required>
+                <label for="Boleto">Boleto</label>
+                <input type="radio" name="FormaPagamento" value="Boleto" required>
+                <label for="Pix">Pix</label>
+                <input type="radio" name="FormaPagamento" value="Pix" required>
+
+                <input type="hidden" name="statusAlugado" value="Aguardando Confirmacao">
+                <button id="btalugarCarro"  style="margin-top:5px ;" type="submit" >Reservar</button>
+            </form>
+        </div>
+                <% } %>
+        </center>
+        <script>
+            function dataInvalida()
+            {
+                var dataInicio = new Date(document.getElementById("datainicio").value);
+                var dataFim = new Date(document.getElementById("datafim").value);
+                var dataAlugadoInicio = new Date(document.getElementById("dataInicioAlugado").value);
+                var dataAlugadoFim = new Date(document.getElementById("dataFimAlugado").value);
+                dataAlugadoInicio.getMonth();
+                
+                var dataAtual = new Date();
+                dataAtual.setHours(0);
+                let erroDataInicio = document.querySelector('input[name=datainicio]');
+                var valorDiaria = document.getElementById("diariaCarro").value;
+
+                console.log(dataAlugadoInicio);
+                console.log(dataAlugadoFim);
+                console.log(dataInicio);
+                console.log(dataFim);
+                console.log(dataAtual);
+                if(dataInicio >= dataFim)
+                {
+                    erroDataInicio.setCustomValidity('Data INICIO maior ou IGUAL que data FIM')
+                }
+                else{
+                    erroDataInicio.setCustomValidity('');
+                    var diasHoras = Math.abs(dataInicio.getTime() - dataFim.getTime());
+                    const days = Math.ceil(diasHoras/(1000 * 60 * 60 *24));
+                    console.log(days); 
+                    var valorTotal= (valorDiaria * days);
+                    document.getElementById("valorT").value = valorTotal;
+                    document.getElementById("valorTotal").value = valorTotal;
+                    document.getElementById("valorDiarias").value = days;
+                }
+            }
+          
+            function difereDatas() {
+                var dataInicio = new Date(document.getElementById("datainicio").value);
+                var dataFim = new Date(document.getElementById("datafim").value);
+                var dataAtual = new Date();
+                dataAtual.setHours(0);
+                let erroDataInicio = document.querySelector('input[name=datainicio]');
+
+                var valorDiaria = document.getElementById("diariaCarro").value;
+                if(dataInicio >= dataFim)
+                {
+                    erroDataInicio.setCustomValidity('Data INICIO maior ou IGUAL que data FIM')
+                }else if(dataInicio < dataAtual){
+                    erroDataInicio.setCustomValidity('Data INICIO já foi ultrapassada');
+                }
+                else
+                { 
+                    erroDataInicio.setCustomValidity('');
+                    var diasHoras = Math.abs(dataInicio.getTime() - dataFim.getTime());
+                    const days = Math.ceil(diasHoras/(1000 * 60 * 60 *24));
+                    console.log(days); 
+                    var valorTotal= (valorDiaria * days);
+                    document.getElementById("valorT").value = valorTotal;
+                    document.getElementById("valorTotal").value = valorTotal;
+                    
+                }
+                //console.log((dataFim.getDate() - dataInicio.getDate())*24);
+                //console.log(dataFim.getMonth()+1);
+            }
+        </script>
+
+</body>
+</html>

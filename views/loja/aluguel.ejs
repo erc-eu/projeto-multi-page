@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>loja/aluguel</title>
+</head>
+<body>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <% if (session!= null) { %>
+            <li><a href="/loja">Loja</a></li>
+            <li id="sessao"><a href="/logout">sair</a></li>
+            <li id="sessao"><a><%=session.email%></a></li>
+            <li id="sessao"><a href="/loja/conta">Minha Conta</a></li>
+            <li id="sessao"><a href="/loja/aluguel">Meus Alugueis</a></li>
+        <% } %>
+        <% if (session == null) { %>
+            <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+            <li id="sessao"><a href="/login">Login</a></li>
+        <% } %>
+    </ul>
+
+    <center>
+        <% for (let i = 0; i < alugado.length; i++) {%>
+        <div id="imgDivCarro" style="height: auto; width: 350px; border: none;">
+            <img id="imagens" src="<%= alugado[i].fotoCarroAlugado %>" >
+            <div style="margin:auto; display: inline-block;">
+                <li id="textCarro">Email: <%= alugado[i].userAlugou %> </li>
+                <li id="textCarro">Nome: <%= alugado[i].nomeCarroAlugado %> </li>
+                <li id="textCarro">Marca: <%= alugado[i].marcaCarroAlugado %> </li>
+                <li id="textCarro">Cor: <%= alugado[i].corCarroAlugado %> </li>
+                <li id="textCarro">Diaria: <%= alugado[i].diariaCarroAlugado%> </li>
+                <li id="textCarro">Valor Total:  <%= alugado[i].valorTotal %> </li>
+                <li id="textCarro">Data Inicio: <%= alugado[i].datainicio%> </li>
+                <li id="textCarro">Data Fim: <%= alugado[i].datafim%> </li>
+                <li id="textCarro">Status: <%= alugado[i].statusAlugado%> </li><br><br>
+            </div>
+        </div>
+        <% } %>
+    </center>
+        
+</body>
+</html>

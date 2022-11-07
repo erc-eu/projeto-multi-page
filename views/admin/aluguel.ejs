@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>admin/aluguel</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+    </head>
+    <body style="margin:auto;">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <% if (session!= null) { %>
+                        <% if (session.cargo == null) { %>
+                            <li><a href="/loja">Loja</a></li>
+                            <li id="sessao"><a href="/logout">sair</a></li>
+                            <li id="sessao"><a><%=session.email%></a></li>
+                            <li id="sessao"><a href="">Minha Conta</a></li>
+                            <li id="sessao"><a href="">Meus Alugueis</a></li>
+                        <% } else { %>
+                            <li id="sessao"><a href="/logout">sair</a></li>
+                            <li id="sessao"><a><%=session.email%></a></li>
+                            <li id="sessao"><a>ADMIN</a></li>
+                            <li><a href="/admin/loja">Loja</a></li>
+                            <li><a href="/admin/aluguel">Aluguel</a></li>
+                            <li><a href="/admin/loja/add-carro">Adicionar Carro</a></li>
+                        <%} %>
+                        
+                    <% } %>
+                    <% if (session == null) { %>
+                        <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+                        <li id="sessao"><a href="/login">Login</a></li>
+                    <% } %>
+                </ul>
+
+                <center>
+                    <% for (let i = 0; i < carrosAlugadosAdmin.length; i++) {%>
+                    <div id="imgDivCarro" style="height: 450px; width: 350px; border: none;">
+                        <img id="imagens" src="<%= carrosAlugadosAdmin[i].fotoCarroAlugado %>" >
+                        <div style="display: inline-block; border-top:2px solid; padding: 10px;">
+                            <li id="textCarro">ID: <%= carrosAlugadosAdmin[i]._id %> </li><br><br>
+                            <li id="textCarro">Email: <%= carrosAlugadosAdmin[i].userAlugou %> </li>
+                            <li id="textCarro">Nome: <%= carrosAlugadosAdmin[i].nomeCarroAlugado %> </li>
+                            <li id="textCarro">Marca: <%= carrosAlugadosAdmin[i].marcaCarroAlugado %> </li>
+                            <li id="textCarro">Cor: <%= carrosAlugadosAdmin[i].corCarroAlugado %> </li>
+                            <li id="textCarro">Diaria: <%= carrosAlugadosAdmin[i].diariaCarroAlugado%> </li>
+                            <li id="textCarro">Valor Total:  <%= carrosAlugadosAdmin[i].valorTotal %> </li>
+                            <li id="textCarro">Data Inicio: <%= carrosAlugadosAdmin[i].datainicio%> </li>
+                            <li id="textCarro">Data Fim: <%= carrosAlugadosAdmin[i].datafim%> </li>
+                            <li id="textCarro">Status: <%= carrosAlugadosAdmin[i].statusAlugado%> </li><br><br>
+                        </div>
+                        <a style="width: auto; display: inline-block; margin: 10px;" id="butEdit"><button onclick="confirmar('<%=carrosAlugadosAdmin[i]._id%>')" style="width: 100%;">Aceitar</button></a>
+                        <a style="width: auto; display: inline-block; margin: 10px;" id="butEdit"><button onclick="rejeitar('<%=carrosAlugadosAdmin[i]._id%>')" style="width: 100%;">Rejeitar</button></a>
+                    </div>
+                    <% } %>
+                </center>
+                <script>
+                    function confirmar(carro)
+                    {
+                        location.href = "/admin/confirma?_id=" + carro;
+                    }
+                    function rejeitar(carro)
+                    {
+                        location.href = "/admin/rejeitar?_id=" + carro;
+                    }
+                </script>
+    </body>
+</html>

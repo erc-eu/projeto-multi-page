@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>admin/loja</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+    </head>
+    <body style="margin:auto;">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <% if (session!= null) { %>
+                        <% if (session.cargo == null) { %>
+                            <li><a href="/loja">Loja</a></li>
+                            <li id="sessao"><a href="/logout">sair</a></li>
+                            <li id="sessao"><a><%=session.email%></a></li>
+                            <li id="sessao"><a href="">Minha Conta</a></li>
+                            <li id="sessao"><a href="">Meus Alugueis</a></li>
+                        <% } else { %>
+                            <li id="sessao"><a href="/logout">sair</a></li>
+                            <li id="sessao"><a><%=session.email%></a></li>
+                            <li id="sessao"><a>ADMIN</a></li>
+                            <li><a href="/admin/loja">Loja</a></li>
+                            <li><a href="/admin/aluguel">Aluguel</a></li>
+                            <li><a href="/admin/loja/add-carro">Adicionar Carro</a></li>
+                        <%} %>
+                        
+                    <% } %>
+                    <% if (session == null) { %>
+                        <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+                        <li id="sessao"><a href="/login">Login</a></li>
+                    <% } %>
+                </ul>
+
+                <div class="container">
+                    <form class="center" method="post" action="/admin/loja/add-carro">
+                        <h1>Adicionar Carro</h1>
+                        <fieldset id="borda">
+                            <label for="foto">Foto:</label><br>
+                            <input type="url" name="foto" placeholder="Cole uma URL de imagem" required><br>
+        
+                            <label for="nome">Nome </label><br>
+                            <input type="text" name="nome" required><br>
+        
+                            <label for="marca">Marca</label><br>
+                            <input type="text" name="marca" required><br>
+
+                            <label for="cor">Cor</label><br>
+                            <input type="text" name="cor" required><br>
+
+                            <label for="valor">Valor</label><br>
+                            <input type="text" name="valor" required><br>
+                            
+                            <label for="diaria">Diaria</label><br>
+                            <input type="text" name="diaria" required><br><br>
+
+                            <input type="hidden" name="status" value="Disponivel Hoje">
+                            <input type="hidden" name="datafinal" value="">
+                            <input type="hidden" name="datainicial" value="">
+
+                            <center><button type="submit" value="submit" style="border-radius:10px ;">Enviar </button></center>
+                        </fieldset>
+                    </form>
+                </div>
+    </body>
+</html>

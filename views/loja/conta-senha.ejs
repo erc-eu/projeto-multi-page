@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>loja/conta-Senha</title>
+</head>
+<body>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <% if (session!= null) { %>
+            <li><a href="/loja">Loja</a></li>
+            <li id="sessao"><a href="/logout">sair</a></li>
+            <li id="sessao"><a><%=session.email%></a></li>
+            <li id="sessao"><a href="/loja/conta">Minha Conta</a></li>
+            <li id="sessao"><a href="/loja/aluguel">Meus Alugueis</a></li>
+        <% } %>
+        <% if (session == null) { %>
+            <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+            <li id="sessao"><a href="/login">Login</a></li>
+        <% } %>
+    </ul>
+
+    <center>
+        <% for (let i = 0; i < cliente.length; i++) {%>
+            <div id="imgDivCarro" style="height: 450px; width: 500px; border: none;">
+            <div style="display: inline-block; border-top:2px solid;">
+
+                <form method="post" action="/loja/conta-senha">
+                    <input type="hidden" name="_id" value="<%= cliente[i]._id%>">
+                    <input type="hidden" name="senhaAtualCheck" value="<%= cliente[i].senha1%>" disabled><br>
+                    <label for="senhaAtual">Senha atual</label><br>
+                    <input type="text" name="senhaAtual" onchange="senhaAtualDif()" required><br>
+
+                    <label for="senha1">Nova senha</label><br>
+                    <input type="text" name="senha1" id="senha1" onchange="senhasdiferentes()" required><br>
+                    
+                    <label for="senha1">Confirmar senha</label><br>
+                    <input type="text" name="senha2" id="senha2" onchange="senhasdiferentes()" required><br><br>
+                    <center><button type="submit" style="width: 95%;">Salvar Edição</button></center>
+                </form>
+                
+            </div>
+            </div>
+        <%}%>
+
+        <script>
+
+            function senhaAtualDif()
+            {
+                const senhaAtualcheck = document.querySelector('input[name=senhaAtualCheck]');
+                const senhaAtual = document.querySelector('input[name=senhaAtual]');
+                if(senhaAtualcheck.value != senhaAtual.value)
+                {
+                    console.log(senhaAtualcheck.value);
+                    console.log(senhaAtual.value);
+                    senhaAtual.setCustomValidity('senha atual incorreta');
+                }else
+                {
+                   
+                    senhaAtual.setCustomValidity('');
+                }
+            }
+
+            function senhasdiferentes()
+            {
+                const pwd = document.querySelector('input[name=senha1]');
+                const pwd2 = document.querySelector('input[name=senha2]');
+                if(pwd2.value === pwd.value)
+                {
+                    pwd2.setCustomValidity('');
+                }else{
+                    pwd2.setCustomValidity('Senhas não são iguais, corrija!');
+                }
+            }
+        </script>
+    </center>
+
+
+</body>
+</html>

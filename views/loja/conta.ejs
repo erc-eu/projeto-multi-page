@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>loja/conta</title>
+</head>
+<body>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <% if (session!= null) { %>
+            <li><a href="/loja">Loja</a></li>
+            <li id="sessao"><a href="/logout">sair</a></li>
+            <li id="sessao"><a><%=session.email%></a></li>
+            <li id="sessao"><a href="/loja/conta">Minha Conta</a></li>
+            <li id="sessao"><a href="/loja/aluguel">Meus Alugueis</a></li>
+        <% } %>
+        <% if (session == null) { %>
+            <li id="sessao"><a href="/registrar">Cadastrar</a></li>
+            <li id="sessao"><a href="/login">Login</a></li>
+        <% } %>
+    </ul>
+
+    <center>
+        <% for (let i = 0; i < cliente.length; i++) {%>
+            <div id="imgDivCarro" style="height: 450px; width: 500px; border: none;">
+            <div style="display: inline-block; border-top:2px solid;">
+                <li id="textSession">Id: <%= cliente[i]._id %> </li><br><br>
+                <li id="textSession">Nome: <%= cliente[i].nome %> </li><br><br> 
+                <li id="textSession">Data: <%= cliente[i].data %> </li>
+                <li id="textSession">sexo: <%= cliente[i].sexo %> </li>
+                <li id="textSession">Telefone: <%= cliente[i].telefone%> </li><br><br>
+                <li id="textSession">Email: <%= cliente[i].email %> </li><br><br>
+            </div>
+            <a href="/loja/conta-editar" style="width: auto; display: inline-block; margin: 10px;" id="butEdit"><button style="width: 100%;">Editar Conta</button></a>
+            <a href="/loja/conta-senha"  style="width: auto; display: inline-block; margin: 10px;" id="butEdit"><button style="width: 100%;">Editar Senha</button></a>
+            </div>
+        <%}%>
+    </center>
+    
+</body>
+</html>
